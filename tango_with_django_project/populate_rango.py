@@ -46,15 +46,15 @@ def populate():
         title="Flask",
         url="http://flask.pocoo.org")
 
-    #name_cat = add_cat('Nicole Munro')
+    name_cat = add_cat('Nicole Munro')
 
-    #add_page(cat=name_cat,
-    #   title="GitHub",
-    #  url="")
+    add_page(cat=name_cat,
+       title="GitHub",
+       url="https://github.com/2081902M/tangowithdjango")
 
-    #add_page(cat=name_cat,
-    #    title="pythonanywhere",
-    #    url="")
+    add_page(cat=name_cat,
+        title="pythonanywhere",
+        url="https://www.pythonanywhere.com/user/2081902M/files/home/2081902M")
 
     for c in Category.objects.all():
         for p in Page.objects.filter(category=c):
