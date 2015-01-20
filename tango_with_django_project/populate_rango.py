@@ -46,6 +46,16 @@ def populate():
         title="Flask",
         url="http://flask.pocoo.org")
 
+    #name_cat = add_cat('Nicole Munro')
+
+    #add_page(cat=name_cat,
+    #   title="GitHub",
+    #  url="")
+
+    #add_page(cat=name_cat,
+    #    title="pythonanywhere",
+    #    url="")
+
     for c in Category.objects.all():
         for p in Page.objects.filter(category=c):
             print "- {0} - {1}".format(str(c), str(p))
