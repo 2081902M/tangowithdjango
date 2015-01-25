@@ -71,7 +71,7 @@ def populate():
             print "- {0} - {1}".format(str(c), str(p))
 
 def add_page(cat, title, url, views):
-    p = Page.objects.get_or_create(category=cat, title=title, url=url, views=views)[0]
+    p = Page.objects.get_or_create(category=cat, title=title, url=url, views=views)
     return p
 
 def add_cat(name, views, likes):
