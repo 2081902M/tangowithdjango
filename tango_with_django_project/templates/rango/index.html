@@ -18,6 +18,7 @@
 	{% endif %}
 
 	        {% if pages %}
+		<strong>Top five pages</strong>
 	    <ul>
 		{% for page in pages %}
 		<li><a href="{{ page.url }}">{{ page.title }}</a></li>
