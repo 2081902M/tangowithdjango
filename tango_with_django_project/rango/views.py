@@ -1,13 +1,9 @@
 from django.shortcuts import render
-from rango.models import Category
-from rango.models import Page
-from rango.forms import CategoryForm
-from rango.forms import PageForm
-from rango.forms import UserForm, UserProfileForm
-from django.contrib.auth import authenticate, login
+from rango.models import Category, Page
+from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
 from datetime import datetime
 
 def index(request):
@@ -98,6 +94,7 @@ def add_page(request, category_name_slug):
 
     return render(request, 'rango/add_page.html', context_dict)
 
+"""
 def register(request):
     registered = False
     if request.method == 'POST':
@@ -134,17 +131,18 @@ def user_login(request):
             else:
                 return HttpResponse("Your Rango account is disabled.")
         else:
-            #return HttpResponseRedirect("/rango/login/")
-            #print "Invalid login details: {0}, {1}".format(username, password)
             return render(request, 'rango/login.html', {'message':"Incorrect username/password, please enter a valid login"})
     else:
         return render(request, 'rango/login.html', {})
+"""
 
 @login_required
 def restricted(request):
     return render(request, 'rango/restricted.html', {})
 
+"""
 @login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/rango/')
+"""
