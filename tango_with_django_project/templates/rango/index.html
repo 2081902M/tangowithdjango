@@ -6,11 +6,15 @@
 {% block title %}Index{% endblock %}
 
 {% block body_block %}
-	    {% if user.is_authenticated %}
-	    <h1>Rango says... hello {{ user.username }}!</h1>
-	    {% else %}
-	    <h1>Rango says... hello world!</h1>
-	    {% endif %}
+		<div class="page-header">
+                {% if user.is_authenticated %}
+				<h1>Rango says... hello {{ user.username }}!</h1>
+				{% else %}
+				<h1>Rango says... hello world!</h1>
+				{% endif %}
+            </div>
+            <div>
+            <p></strong>This is Rango's home page</p>
 		
 		{% if categories %}
             <ul>
