@@ -1,8 +1,6 @@
 import json
 import urllib, urllib2
-import BING_API_KEY from keys.py
-
-BING_API_KEY = '4XNF7E9nwVXFZ1MGS+kyM6N+YylhJ1eljO+/oAURYVo'
+from keys import BING_API_KEY
 
 def run_query(search_terms):
     root_url = 'https://api.datamarket.azure.com/Bing/Search/'
@@ -46,3 +44,11 @@ def run_query(search_terms):
 
     return results
 
+def main():
+    query = raw_input("Enter a query: ")
+    results = run_query(query)
+    for i in range(0,10):
+        print i+1, results[i]['title'], results[i]['link']
+
+if __name__ == '__main__':
+    main()
