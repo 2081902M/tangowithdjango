@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from rango.bing_search import run_query
+from django.contrib.auth.models import User
 
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
@@ -146,3 +147,32 @@ def track_url(request):
 
     return redirect(url)
 
+def register_profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            if request.user.is_authenticated():
+                profile = profile_form.save(commit=False)
+                user = User.objects.get(id=request.user.id)
+                profile.user = user
+                profile.picture = request.FILES['picture']
+                profile.save()
+        else:
+            print form.errors
+        return index(request)
+    else:
+        form = UserProfileForm()
+    return render(request, 'rango/profile_registration.html', {'profile_form': form})
+
+@login_required
+def profile(request):
+    u = User.objects.get(username=request.user.username)
+    context_dict = {}
+    try:
+        user_profile = UserProfile.objects.get(user=u)
+    except:
+        user_profile = None
+
+    context_dict['user'] = u
+    context_dict['userprofile'] = user_profile
+    return render(request, 'rango/profile.html', context_dict)
