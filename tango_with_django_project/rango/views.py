@@ -149,13 +149,16 @@ def track_url(request):
 
 def register_profile(request):
     if request.method == 'POST':
-        form = UserProfileForm(request.POST)
+        form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             if request.user.is_authenticated():
-                profile = profile_form.save(commit=False)
+                profile = form.save(commit=False)
                 user = User.objects.get(id=request.user.id)
                 profile.user = user
-                profile.picture = request.FILES['picture']
+                try:
+                    profile.picture = request.FILES['picture']
+                except:
+                    pass
                 profile.save()
         else:
             print form.errors
