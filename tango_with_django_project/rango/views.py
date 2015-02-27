@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from rango.models import Category, Page
+from rango.models import Category, Page, UserProfile
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
@@ -152,16 +152,17 @@ def register_profile(request):
         form = UserProfileForm(request.POST)
         if form.is_valid():
             if request.user.is_authenticated():
-                profile = profile_form.save(commit=False)
+                profile = form.save(commit=False)
                 user = User.objects.get(id=request.user.id)
                 profile.user = user
-                profile.picture = request.FILES['picture']
+                if 'picture' in request.FILES:
+                    profile.picture = request.FILES['picture']
                 profile.save()
         else:
             print form.errors
         return index(request)
     else:
-        form = UserProfileForm()
+        form = UserProfileForm(request.GET)
     return render(request, 'rango/profile_registration.html', {'profile_form': form})
 
 @login_required
@@ -176,3 +177,16 @@ def profile(request):
     context_dict['user'] = u
     context_dict['userprofile'] = user_profile
     return render(request, 'rango/profile.html', context_dict)
+
+#def update_profile(request):
+ #   context_dict = {}
+  #  if request.method == 'POST'
+   #     form = UpdateProfileForm(request.POST,instance=request.user)
+    #    if form.is_valid():
+     #       form.save()
+      #      return index(request)
+    #else:
+     #   form = UpdateProfile()
+
+#    context_dict['form'] = form
+ #   return render(request, )
