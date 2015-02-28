@@ -149,21 +149,24 @@ def track_url(request):
 
 def register_profile(request):
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user)
+        try:
+            userProfile = UserProfile.objects.get(user=request.user)
+            form = UserProfileForm(request.POST, instance=request.user)
+        except:
+            form = UserProfileForm(request.POST)
+            userProfile = UserProfile.objects.get_or_create(user=request.user)
         if form.is_valid():
             if request.user.is_authenticated():
                 profile = form.save(commit=False)
                 user = User.objects.get(id=request.user.id)
                 profile.user = user
-<<<<<<< HEAD
+                profile.website = website
                 if 'picture' in request.FILES:
                     profile.picture = request.FILES['picture']
-=======
                 try:
                     profile.picture = request.FILES['picture']
                 except:
                     pass
->>>>>>> e1b4a2f7e7f5bdd3ed629be462f1583cfbdf6aea
                 profile.save()
         else:
             print form.errors
@@ -185,15 +188,16 @@ def profile(request):
     context_dict['userprofile'] = user_profile
     return render(request, 'rango/profile.html', context_dict)
 
-#def update_profile(request):
- #   context_dict = {}
-  #  if request.method == 'POST'
-   #     form = UpdateProfileForm(request.POST,instance=request.user)
-    #    if form.is_valid():
-     #       form.save()
-      #      return index(request)
-    #else:
-     #   form = UpdateProfile()
-
-#    context_dict['form'] = form
- #   return render(request, )
+##def edit_profile(request):
+##    context_dict = {}
+##    if request.method == 'POST'
+##        form = EditProfileForm(request.POST,instance=request.user)
+##        if form.is_valid():
+##            form.save()
+##            return index(request)
+##    else:
+##        form = UpdateProfile()
+##
+##    context_dict['form'] = form
+##    return render(request, 'rango/edit_profile.html' ,context_dict)
+##

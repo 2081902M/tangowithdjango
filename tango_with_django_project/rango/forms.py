@@ -42,13 +42,13 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('website', 'picture')
 
-#class UpdateProfileForm(forms.ModelForm):
- #   class Meta:
-  #      model = UserProfile
-   #     fields = ('website', 'picture')
-
-#    def save(self, commit=True):
- #       user = super().save(commit=False)
-  #      if commit:
-   #         user.save()
-    #    return user
+##class EditProfileForm(forms.ModelForm):
+##    class Meta:
+##        model = UserProfile
+##        fields = ('website', 'picture')
+##
+##    def save(self, commit=True):
+##        user = super(UserProfileForm, self).save(commit=False)
+##        if commit:
+##            user.save()
+##        return user
