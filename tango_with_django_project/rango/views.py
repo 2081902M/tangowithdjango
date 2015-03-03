@@ -151,20 +151,16 @@ def register_profile(request):
     if request.method == 'POST':
         try:
             userProfile = UserProfile.objects.get(user=request.user)
-            form = UserProfileForm(request.POST, instance=request.user)
+            form = UserProfileForm(request.POST, request.FILES, instance=request.user)
         except:
-            form = UserProfileForm(request.POST)
-            userProfile = UserProfile.objects.get_or_create(user=request.user)
+            form = UserProfileForm(request.POST, request.FILES)
         if form.is_valid():
             if request.user.is_authenticated():
                 profile = form.save(commit=False)
                 user = User.objects.get(id=request.user.id)
                 profile.user = user
-                profile.website = website
-                if 'picture' in request.FILES:
-                    profile.picture = request.FILES['picture']
                 try:
-                    profile.picture = request.FILES['picture']
+                    profile.picture = picture #request.FILES['picture']
                 except:
                     pass
                 profile.save()
@@ -187,17 +183,3 @@ def profile(request):
     context_dict['user'] = u
     context_dict['userprofile'] = user_profile
     return render(request, 'rango/profile.html', context_dict)
-
-##def edit_profile(request):
-##    context_dict = {}
-##    if request.method == 'POST'
-##        form = EditProfileForm(request.POST,instance=request.user)
-##        if form.is_valid():
-##            form.save()
-##            return index(request)
-##    else:
-##        form = UpdateProfile()
-##
-##    context_dict['form'] = form
-##    return render(request, 'rango/edit_profile.html' ,context_dict)
-##
