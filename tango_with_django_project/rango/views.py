@@ -160,7 +160,7 @@ def register_profile(request):
                 user = User.objects.get(id=request.user.id)
                 profile.user = user
                 try:
-                    profile.picture = picture #request.FILES['picture']
+                    profile.picture = request.FILES['picture']
                 except:
                     pass
                 profile.save()
