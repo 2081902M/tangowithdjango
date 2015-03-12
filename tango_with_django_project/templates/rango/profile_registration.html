@@ -14,7 +14,7 @@
 
         	<form id="user_profile_form" method="post" action="/rango/add_profile/"
             			enctype="multipart/form-data">
-		    {% csrf_token %}
+					{% csrf_token %}
             	    {{ profile_form.as_p }}
 		
 

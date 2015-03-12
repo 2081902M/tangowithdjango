@@ -151,7 +151,7 @@ def register_profile(request):
     if request.method == 'POST':
         try:
             userProfile = UserProfile.objects.get(user=request.user)
-            form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+            form = UserProfileForm(request.POST, request.FILES, instance=userProfile)#request.user)
         except:
             form = UserProfileForm(request.POST, request.FILES)
         if form.is_valid():
